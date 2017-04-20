@@ -33,7 +33,7 @@ the segment end points. For example, if a segment has end points
 x1 y1 z1 x2 y2 z2
 ```
 
-## Control Flow and Design Philosophy.
+## Control Flow and Design Philosophy
 
 The present version has been written with clarity and correctness in mind.
 The program currently involves `O(n^2)` distance computations for `n` input
@@ -65,4 +65,4 @@ track of this information across DFS calls. Thus, the program is able
 to successfully count the number of line segment groups. Note that
 while DFS is easy to code, it may not be the most efficient
 approach due to creation of recursion stack that could run deep.
-Computing reachability via DFS will be better.
+Computing reachability via BFS will be better.
