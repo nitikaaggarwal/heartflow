@@ -32,3 +32,37 @@ the segment end points. For example, if a segment has end points
 ```
 x1 y1 z1 x2 y2 z2
 ```
+
+## Control Flow and Design Philosophy.
+
+The present version has been written with clarity and correctness in mind.
+The program currently involves `O(n^2)` distance computations for `n` input
+segments, i.e., a segment is compared for overlap with every other segment
+in memory. This process may be accelerated with implementation of a K-D Tree.
+This way, a segment will only be compared with candidates that are close
+enough, reducing asymptotic complexity closer to linear time.
+
+The program first reads all line segments into memory. There is no
+pre-processing for numerical stability. One option could be to translate
+the data points such that the mean lies at the origin.
+
+A line segment is stored in the `LineSegment` data structure, which
+stores the end points internally as a `Point3` data structure.
+
+I compare each segment with all other segments to create a graph, such
+that each segment has a vertex in the graph, and two vertices (segments)
+share an edge if their minimum distance is below a threshold. Such a
+criterion is especially useful if the line segments have thickness, as
+shown in the original problem illustration. Moreover, two line segments
+will seldom, if ever, perfectly intersect. Hence, a small threshold
+is the correct way to compute intersection.
+
+The graph is stored as a vector of vectors, such that each index is
+mapped to a list of neighbors. For each node, the program performs DFS,
+marking each reachable node as visited. The DFS is only initiated
+for nodes that have been unvisited by previous DFS calls; I keep
+track of this information across DFS calls. Thus, the program is able
+to successfully count the number of line segment groups. Note that
+while DFS is easy to code, it may not be the most efficient
+approach due to creation of recursion stack that could run deep.
+Computing reachability via DFS will be better.
