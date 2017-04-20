@@ -68,7 +68,7 @@ approach due to creation of recursion stack that could run deep.
 Computing reachability via BFS will be better.
 
 
-# Computing Shortest Distance Between Line Segments
+### Computing Shortest Distance Between Line Segments
 
 I parameterize the line passing through points `p1` and `p2` with
 a scalar `lambda`. The following formulation ensures that a point
