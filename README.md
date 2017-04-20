@@ -66,3 +66,28 @@ to successfully count the number of line segment groups. Note that
 while DFS is easy to code, it may not be the most efficient
 approach due to creation of recursion stack that could run deep.
 Computing reachability via BFS will be better.
+
+
+# Computing Shortest Distance Between Line Segments
+
+I parameterize the line passing through points `p1` and `p2` with
+a scalar `lambda`. The following formulation ensures that a point
+lies on the line segment between these points if and only if
+`lambda` lies between `0` and `1`:
+
+```
+p1 + lambda * (p2 - p1)
+```
+
+For two line segments, we compute `lambda1` and `lambda2` respectively
+such that the length of the line segment joining the parametric
+points is minimized, if the line segments are not roughly parallel.
+For the parallel case, we use the standard cross product fomulation
+that computes the minimum distance between lines. It is possible
+that the points obtained will lie outside the line segments. However,
+since the distance function is quadratic in the parametric variables,
+we have a convex surface for it, and the distance will increase
+monotonically as we move away from optimal lambda values. Thus, we
+can safely clamp the optimal parameters to the edges of the `[0, 1]`
+interval, and use the points so obtained to compute the minimum distance
+between the line segments.
